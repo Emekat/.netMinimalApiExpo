@@ -25,12 +25,6 @@ app.MapPost("/employees", (Employee employee) =>
     return TypedResults.Created($"/employees/{employee.Id}", employee);
 }).WithName("CreateEmployee");
 
-app.MapPut("/employees/{id}", (int id, Employee employee) =>
-{
-    EmployeeManager.Update(id, employee);
-    return TypedResults.Ok(employee);
-}).WithName("UpdateEmployeeById");
-
 app.MapPut("/employees", (Employee employee) =>
 {
     EmployeeManager.UpdateEmployee(employee);
