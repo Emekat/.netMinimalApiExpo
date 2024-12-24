@@ -15,14 +15,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
 app.MapGet("/employees/{id}", (int id) => TypedResults.Ok(EmployeeManager.Get(id))).WithName("GetEmployee");
 
 app.MapPost("/employees", (Employee employee) =>
 {
     EmployeeManager.Create(employee);
-    return TypedResults.Created($"/employees/{employee.Id}", employee);
+    return TypedResults.Created();
 }).WithName("CreateEmployee");
 
 app.MapPut("/employees", (Employee employee) =>
