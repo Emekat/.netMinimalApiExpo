@@ -15,27 +15,27 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.MapGet("/employees/{id}", (int id) => TypedResults.Ok(EmployeeManager.Get(id))).WithName("GetEmployee");
+app.MapGet("/employees/{id}", async (int id) => TypedResults.Ok(EmployeeManager.Get(id))).WithName("GetEmployee");
 
-app.MapPost("/employees", (Employee employee) =>
+app.MapPost("/employees", async (Employee employee) =>
 {
     EmployeeManager.Create(employee);
     return TypedResults.Created();
 }).WithName("CreateEmployee");
 
-app.MapPut("/employees", (Employee employee) =>
+app.MapPut("/employees", async (Employee employee) =>
 {
     EmployeeManager.UpdateEmployee(employee);
     return TypedResults.Ok(employee);
 }).WithName("UpdateEmployee");
 
-app.MapPatch("/employees/{id}/name", (int id, string name) =>
+app.MapPatch("/employees/{id}/name", async (int id, string name) =>
 {
     EmployeeManager.ChangeName(id, name);
     return TypedResults.Ok();
 }).WithName("ChangeEmployeeName");
 
-app.MapDelete("/employees/{id}", (int id) =>
+app.MapDelete("/employees/{id}", async (int id) =>
 {
     EmployeeManager.DeleteEmployee(id);
     return TypedResults.Ok();
